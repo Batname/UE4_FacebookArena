@@ -4,6 +4,7 @@
 
 #include "CoreMinimal.h"
 #include "PaperSpriteActor.h"
+#include "Runtime/Online/HTTP/Public/Http.h"
 #include "TestPaperSpriteActor.generated.h"
 
 /**
@@ -25,4 +26,16 @@ protected:
 private:
 	class UPaperSpriteComponent* PaperSpriteComp;
 	class UTexture2D* TestTex;
+
+// ----- HTTP call
+// -----------------
+public:
+	FHttpModule* Http;
+	
+	/* The actual HTTP call */
+	UFUNCTION()
+	void MyHttpCall();
+	
+	/*Assign this function to call when the GET request processes sucessfully*/
+	void OnResponseReceived(FHttpRequestPtr Request, FHttpResponsePtr Response, bool bWasSuccessful);
 };
