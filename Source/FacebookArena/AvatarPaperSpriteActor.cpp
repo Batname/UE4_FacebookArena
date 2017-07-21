@@ -2,12 +2,16 @@
 
 
 #include "AvatarPaperSpriteActor.h"
+#include "FB_AccountData.h"
 
 #include "PaperSpriteComponent.h"
 #include "Engine/Texture2D.h"
 #include "Materials/MaterialInstanceDynamic.h"
 #include "Interfaces/IImageWrapper.h"
 #include "Interfaces/IImageWrapperModule.h"
+
+#include "Engine/DataTable.h"
+#include "UObject/ConstructorHelpers.h"
 
 AAvatarPaperSpriteActor::AAvatarPaperSpriteActor()
 {
@@ -16,6 +20,10 @@ AAvatarPaperSpriteActor::AAvatarPaperSpriteActor()
 
 	//When the object is constructed, Get the HTTP module
 	Http = &FHttpModule::Get();
+
+	// TODO - data table for test
+	static ConstructorHelpers::FObjectFinder<UDataTable>AvatarsObj(TEXT("DataTable'/Game/Data/Avatars.Avatars'"));
+	AvatarsDataTable = AvatarsObj.Object;
 }
 
 void AAvatarPaperSpriteActor::BeginPlay()
@@ -31,8 +39,13 @@ void AAvatarPaperSpriteActor::GetAvatarHttpCall()
 	TSharedRef<IHttpRequest> Request = Http->CreateRequest();
 	Request->OnProcessRequestComplete().BindUObject(this, &AAvatarPaperSpriteActor::OnResponseReceived);
 
+	// TODO - test data table
+	TArray<FName> RowNames = AvatarsDataTable->GetRowNames();
+	FString ContextString;
+	FFB_AccountData* FB_AccountData = AvatarsDataTable->FindRow<FFB_AccountData>(RowNames[0], ContextString);
+
 	// URL params
-	Request->SetURL("http://localhost:8000/av.jpg");
+	Request->SetURL(FB_AccountData->ImagePath);
 	Request->SetVerb("GET");
 	Request->SetHeader(TEXT("User-Agent"), "X-UnrealEngine-Agent");
 	Request->SetHeader("Content-Type", TEXT("image/jpeg"));

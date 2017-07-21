@@ -6827,9 +6827,9 @@ SOURCES += \
 	"$$unrealRootPath/Engine/Plugins/Tests/RuntimeTests/Source/RuntimeTests/Private/Slate/RichTextMarkupProcessingTest.cpp" \
 	"$$unrealRootPath/Engine/Plugins/Tests/ScreenshotTools/Source/ScreenshotTools/Private/ScreenshotTools.cpp" \
 	"$$FacebookArenaRootPath/Source/FacebookArena/AvatarPaperSpriteActor.cpp" \
+	"$$FacebookArenaRootPath/Source/FacebookArena/FB_AccountData.cpp" \
 	"$$FacebookArenaRootPath/Source/FacebookArena/FacebookArena.cpp" \
 	"$$FacebookArenaRootPath/Source/FacebookArena/FacebookArenaCharacter.cpp" \
 	"$$FacebookArenaRootPath/Source/FacebookArena/FacebookArenaGameMode.cpp" \
-	"$$FacebookArenaRootPath/Source/FacebookArena/TestPaperSpriteActor.cpp" \
  
 

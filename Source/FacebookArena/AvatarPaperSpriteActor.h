@@ -21,6 +21,10 @@ public:
 protected:
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
+
+	/*The player lines - each pawn can offer different dialog options for our character*/
+	UPROPERTY(EditAnywhere, Category = TestFacebookData)
+	class UDataTable* AvatarsDataTable;
 	
 private:
 /** Referense to root sprite comp[onent */

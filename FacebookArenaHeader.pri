@@ -8840,9 +8840,9 @@ HEADERS += \
 	"$$unrealRootPath/Engine/Plugins/Tests/RuntimeTests/Source/RuntimeTests/Public/RuntimeTests.h" \
 	"$$unrealRootPath/Engine/Plugins/Tests/ScreenshotTools/Source/ScreenshotTools/Public/ScreenshotTools.h" \
 	"$$FacebookArenaRootPath/Source/FacebookArena/AvatarPaperSpriteActor.h" \
+	"$$FacebookArenaRootPath/Source/FacebookArena/FB_AccountData.h" \
 	"$$FacebookArenaRootPath/Source/FacebookArena/FacebookArena.h" \
 	"$$FacebookArenaRootPath/Source/FacebookArena/FacebookArenaCharacter.h" \
 	"$$FacebookArenaRootPath/Source/FacebookArena/FacebookArenaGameMode.h" \
-	"$$FacebookArenaRootPath/Source/FacebookArena/TestPaperSpriteActor.h" \
  
 
