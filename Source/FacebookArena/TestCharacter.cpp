@@ -65,10 +65,10 @@ void ATestCharacter::MyHttpCall()
 	TSharedRef<IHttpRequest> Request = Http->CreateRequest();
 	Request->OnProcessRequestComplete().BindUObject(this, &ATestCharacter::OnResponseReceived);
 	//This is the url on which to process the request
-	Request->SetURL("http://localhost:8000/tex.png");
+	Request->SetURL("http://localhost:8000/av.jpg");
 	Request->SetVerb("GET");
 	Request->SetHeader(TEXT("User-Agent"), "X-UnrealEngine-Agent");
-	Request->SetHeader("Content-Type", TEXT("image/png"));
+	Request->SetHeader("Content-Type", TEXT("image/jpeg"));
 	Request->ProcessRequest();
 }
 
@@ -82,7 +82,7 @@ void ATestCharacter::OnResponseReceived(FHttpRequestPtr Request, FHttpResponsePt
 	UE_LOG(LogTemp, Warning, TEXT("ImageDataArray %d"), ImageDataArray.Num());
 
 	IImageWrapperModule& ImageWrapperModule = FModuleManager::LoadModuleChecked<IImageWrapperModule>(FName("ImageWrapper"));
-	IImageWrapperPtr ImageWrapper = ImageWrapperModule.CreateImageWrapper(EImageFormat::PNG);
+	IImageWrapperPtr ImageWrapper = ImageWrapperModule.CreateImageWrapper(EImageFormat::JPEG);
 
 	if (ImageWrapper.IsValid() && ImageWrapper->SetCompressed(ImageDataArray.GetData(), ImageDataArray.Num()))
 	{
