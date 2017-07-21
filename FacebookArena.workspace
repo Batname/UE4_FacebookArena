@@ -3900,6 +3900,13 @@
     <Include Path="/home/bat/Apps/UnrealEngine/Engine/Source/Runtime/AudioMixer/Public/DSP" />
     <Include Path="/home/bat/Apps/UnrealEngine/Engine/Intermediate/Build/Linux/B4D820EA/UE4Editor/Inc/AudioMixer" />
     <Include Path="/home/bat/Apps/UnrealEngine/Engine/Source/Runtime/AudioMixer" />
+    <Include Path="/home/bat/Apps/UnrealEngine/Engine/Source/Runtime/JsonUtilities/Public" />
+    <Include Path="/home/bat/Apps/UnrealEngine/Engine/Intermediate/Build/Linux/B4D820EA/UE4Editor/Inc/JsonUtilities" />
+    <Include Path="/home/bat/Apps/UnrealEngine/Engine/Source/Runtime/JsonUtilities" />
+    <Include Path="/home/bat/Apps/UnrealEngine/Engine/Plugins/2D/Paper2D/Source/Paper2D/Classes" />
+    <Include Path="/home/bat/Apps/UnrealEngine/Engine/Plugins/2D/Paper2D/Source/Paper2D/Public" />
+    <Include Path="/home/bat/Apps/UnrealEngine/Engine/Plugins/2D/Paper2D/Intermediate/Build/Linux/B4D820EA/UE4Editor/Inc/Paper2D" />
+    <Include Path="/home/bat/Apps/UnrealEngine/Engine/Plugins/2D/Paper2D/Source/Paper2D" />
   </WorkspaceParserPaths>
   <Project Name="UE4Client" Path="Intermediate/ProjectFiles/UE4Client.project" Active="No" />
   <Project Name="UE4Editor" Path="Intermediate/ProjectFiles/UE4Editor.project" Active="No" />

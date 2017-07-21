@@ -3897,3 +3897,10 @@
 /home/bat/Apps/UnrealEngine/Engine/Source/Runtime/AudioMixer/Public/DSP
 /home/bat/Apps/UnrealEngine/Engine/Intermediate/Build/Linux/B4D820EA/UE4Editor/Inc/AudioMixer
 /home/bat/Apps/UnrealEngine/Engine/Source/Runtime/AudioMixer
+/home/bat/Apps/UnrealEngine/Engine/Source/Runtime/JsonUtilities/Public
+/home/bat/Apps/UnrealEngine/Engine/Intermediate/Build/Linux/B4D820EA/UE4Editor/Inc/JsonUtilities
+/home/bat/Apps/UnrealEngine/Engine/Source/Runtime/JsonUtilities
+/home/bat/Apps/UnrealEngine/Engine/Plugins/2D/Paper2D/Source/Paper2D/Classes
+/home/bat/Apps/UnrealEngine/Engine/Plugins/2D/Paper2D/Source/Paper2D/Public
+/home/bat/Apps/UnrealEngine/Engine/Plugins/2D/Paper2D/Intermediate/Build/Linux/B4D820EA/UE4Editor/Inc/Paper2D
+/home/bat/Apps/UnrealEngine/Engine/Plugins/2D/Paper2D/Source/Paper2D

@@ -6830,5 +6830,7 @@ SOURCES += \
 	"$$FacebookArenaRootPath/Source/FacebookArena/FacebookArenaCharacter.cpp" \
 	"$$FacebookArenaRootPath/Source/FacebookArena/FacebookArenaGameMode.cpp" \
 	"$$FacebookArenaRootPath/Source/FacebookArena/TestCharacter.cpp" \
+	"$$FacebookArenaRootPath/Source/FacebookArena/TestCharacter_2D.cpp" \
+	"$$FacebookArenaRootPath/Source/FacebookArena/TestPaperSpriteActor.cpp" \
  
 

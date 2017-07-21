@@ -8843,5 +8843,7 @@ HEADERS += \
 	"$$FacebookArenaRootPath/Source/FacebookArena/FacebookArenaCharacter.h" \
 	"$$FacebookArenaRootPath/Source/FacebookArena/FacebookArenaGameMode.h" \
 	"$$FacebookArenaRootPath/Source/FacebookArena/TestCharacter.h" \
+	"$$FacebookArenaRootPath/Source/FacebookArena/TestCharacter_2D.h" \
+	"$$FacebookArenaRootPath/Source/FacebookArena/TestPaperSpriteActor.h" \
  
 
