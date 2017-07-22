@@ -8843,6 +8843,14 @@ HEADERS += \
 	"$$FacebookArenaRootPath/Source/FacebookArena/FB_AccountData.h" \
 	"$$FacebookArenaRootPath/Source/FacebookArena/FacebookArena.h" \
 	"$$FacebookArenaRootPath/Source/FacebookArena/FacebookArenaCharacter.h" \
-	"$$FacebookArenaRootPath/Source/FacebookArena/FacebookArenaGameMode.h" \
+	"$$FacebookArenaRootPath/Source/FacebookArena/FacebookArenaSession.h" \
+	"$$FacebookArenaRootPath/Source/FacebookArena/GameMode_FA.h" \
+	"$$FacebookArenaRootPath/Source/FacebookArena/GameSettingsWidget.h" \
+	"$$FacebookArenaRootPath/Source/FacebookArena/GameState_FA.h" \
+	"$$FacebookArenaRootPath/Source/FacebookArena/HUD_FA.h" \
+	"$$FacebookArenaRootPath/Source/FacebookArena/PlayerController_FA.h" \
+	"$$FacebookArenaRootPath/Source/FacebookArena/PlayerState_FA.h" \
+	"$$FacebookArenaRootPath/Source/FacebookArena/SpectatorPawn_FA.h" \
+	"$$FacebookArenaRootPath/Source/FacebookArena/StartMenuWidget.h" \
  
 

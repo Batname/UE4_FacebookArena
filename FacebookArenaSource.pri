@@ -6830,6 +6830,14 @@ SOURCES += \
 	"$$FacebookArenaRootPath/Source/FacebookArena/FB_AccountData.cpp" \
 	"$$FacebookArenaRootPath/Source/FacebookArena/FacebookArena.cpp" \
 	"$$FacebookArenaRootPath/Source/FacebookArena/FacebookArenaCharacter.cpp" \
-	"$$FacebookArenaRootPath/Source/FacebookArena/FacebookArenaGameMode.cpp" \
+	"$$FacebookArenaRootPath/Source/FacebookArena/FacebookArenaSession.cpp" \
+	"$$FacebookArenaRootPath/Source/FacebookArena/GameMode_FA.cpp" \
+	"$$FacebookArenaRootPath/Source/FacebookArena/GameSettingsWidget.cpp" \
+	"$$FacebookArenaRootPath/Source/FacebookArena/GameState_FA.cpp" \
+	"$$FacebookArenaRootPath/Source/FacebookArena/HUD_FA.cpp" \
+	"$$FacebookArenaRootPath/Source/FacebookArena/PlayerController_FA.cpp" \
+	"$$FacebookArenaRootPath/Source/FacebookArena/PlayerState_FA.cpp" \
+	"$$FacebookArenaRootPath/Source/FacebookArena/SpectatorPawn_FA.cpp" \
+	"$$FacebookArenaRootPath/Source/FacebookArena/StartMenuWidget.cpp" \
  
 
