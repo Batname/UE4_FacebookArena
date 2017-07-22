@@ -4,6 +4,7 @@
 
 #include "CoreMinimal.h"
 #include "GameFramework/PlayerController.h"
+#include "Runtime/Online/HTTP/Public/Http.h"
 #include "PlayerController_FA.generated.h"
 
 /**
@@ -19,6 +20,10 @@ public:
 
 	/** Open second widget after start up widget */
 	void OpenGameSettingsWidget();
+
+	/* The get friends HTTP call */
+	UFUNCTION()
+	void GetFriendsHttpCall(const FString& FacebookID);
 
 protected:
 	virtual void BeginPlay() override;
@@ -40,4 +45,10 @@ private:
 
 	/** Set reference to game mode */
 	class AGameMode_FA* GameMode_FA;
+
+	FHttpModule* Http;
+
+	/*Assign this function to call when the GET request processes sucessfully*/
+	void OnGetFriendsResponseReceived(FHttpRequestPtr Request, FHttpResponsePtr Response, bool bWasSuccessful);
+
 };

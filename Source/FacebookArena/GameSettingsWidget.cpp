@@ -6,13 +6,8 @@
 #include "GameMode_FA.h"
 #include "PlayerController_FA.h"
 
-
-void UGameSettingsWidget::NativeConstruct()
+void UGameSettingsWidget::ConnectFacebookID()
 {
-	Super::NativeConstruct();
-
-	GameMode_FA = AGameMode_FA::StaticClass()->GetDefaultObject<AGameMode_FA>();
+	GameMode_FA = Cast<AGameMode_FA>(GetWorld()->GetAuthGameMode());
+	GameMode_FA->PlayerController_FA->GetFriendsHttpCall(PlayerFacebookID);
 }
-
-
-

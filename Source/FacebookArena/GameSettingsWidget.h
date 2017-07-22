@@ -15,16 +15,16 @@ class FACEBOOKARENA_API UGameSettingsWidget : public UUserWidget
 	GENERATED_BODY()
 	
 protected:
-	virtual void NativeConstruct() override;
-
 	UPROPERTY(BlueprintReadWrite)
 	FString PlayerFacebookID;
 
 	UPROPERTY(BlueprintReadWrite)
 	FString OponentFacebookID;
+
+	UFUNCTION(BlueprintCallable, Category = GameSettingsWidget)
+	void ConnectFacebookID();
 private:
 	/** Set reference to game mode */
 	class AGameMode_FA* GameMode_FA;
-	
 	
 };

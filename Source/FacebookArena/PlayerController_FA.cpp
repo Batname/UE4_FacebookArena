@@ -23,8 +23,11 @@ void APlayerController_FA::BeginPlay()
 	Super::BeginPlay();
 
 	// setup reference to Game mode
-	GameMode_FA = AGameMode_FA::StaticClass()->GetDefaultObject<AGameMode_FA>();
+	GameMode_FA = Cast<AGameMode_FA>(GetWorld()->GetAuthGameMode());
 	GameMode_FA->PlayerController_FA = this;
+
+	// Setup HTTP module
+	Http = &FHttpModule::Get();
 
 	// Show cursor by default
 	bShowMouseCursor = true;
@@ -41,4 +44,23 @@ void APlayerController_FA::OpenGameSettingsWidget()
 {
 	StartMenuWidget->RemoveFromViewport();
 	GameSettingsWidget->AddToViewport();
+}
+
+void APlayerController_FA::GetFriendsHttpCall(const FString& FacebookID)
+{
+	FString API_Path = GameMode_FA->GetFB_ApiPath() + FacebookID + FString("/friends?access_token=") + GameMode_FA->GetFB_Token();
+
+	TSharedRef<IHttpRequest> Request = Http->CreateRequest();
+	Request->OnProcessRequestComplete().BindUObject(this, &APlayerController_FA::OnGetFriendsResponseReceived);
+	Request->SetURL(API_Path);
+	Request->SetVerb("GET");
+	Request->SetHeader(TEXT("User-Agent"), "X-UnrealEngine-Agent");
+	Request->SetHeader("Content-Type", TEXT("application/json"));
+	Request->ProcessRequest();
+}
+
+void APlayerController_FA::OnGetFriendsResponseReceived(FHttpRequestPtr Request, FHttpResponsePtr Response, bool bWasSuccessful)
+{
+	UE_LOG(LogTemp, Warning, TEXT("OnGetFriendsResponseReceived"));
+
 }

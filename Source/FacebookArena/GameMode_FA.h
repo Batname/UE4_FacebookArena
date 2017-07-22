@@ -17,8 +17,19 @@ class FACEBOOKARENA_API AGameMode_FA : public AGameMode
 public:
 	AGameMode_FA();
 
+	FString GetFB_Token() { return FB_Token; }
+	FString GetFB_ApiPath() { return FB_ApiPath; }
+
 protected:
 	virtual void BeginPlay() override;
+
+	/** Facebook token */
+	UPROPERTY(EditDefaultsOnly)
+	FString FB_Token;
+
+	/** Facebook token */
+	UPROPERTY(EditDefaultsOnly)
+	FString FB_ApiPath;
 	
 public:
 	// References to game mode classes

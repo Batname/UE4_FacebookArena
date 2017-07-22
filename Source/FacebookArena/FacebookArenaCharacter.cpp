@@ -56,7 +56,7 @@ void AFacebookArenaCharacter::BeginPlay()
 	Super::BeginPlay();
 
 	// Set reference to game mode
-	GameMode_FA = AGameMode_FA::StaticClass()->GetDefaultObject<AGameMode_FA>();
+	GameMode_FA = Cast<AGameMode_FA>(GetWorld()->GetAuthGameMode());
 	GameMode_FA->Character_FA = this;
 
 	// Disable input by default
