@@ -107,8 +107,6 @@ void APlayerController_FA::OnGetPictureResponseReceived(FHttpRequestPtr Request,
 	FriendsNumCount++;
 	if (FriendsNum == FriendsNumCount)
 	{
-		UE_LOG(LogTemp, Warning, TEXT("OnGetPictureResponseReceived DONE"));
-
 		// Disable input
 		GameSettingsWidget->ConnectFacebookID_Done();
 
@@ -126,6 +124,8 @@ void APlayerController_FA::StartGame()
 	// remove option widget
 	GameSettingsWidget->RemoveFromViewport();
 
+	// Spawn all
+	GameMode_FA->SpawnAll();
 }
 
 // 100007953361890

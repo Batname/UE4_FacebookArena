@@ -6837,6 +6837,7 @@ SOURCES += \
 	"$$FacebookArenaRootPath/Source/FacebookArena/HUD_FA.cpp" \
 	"$$FacebookArenaRootPath/Source/FacebookArena/PlayerController_FA.cpp" \
 	"$$FacebookArenaRootPath/Source/FacebookArena/PlayerState_FA.cpp" \
+	"$$FacebookArenaRootPath/Source/FacebookArena/SpawnVolume.cpp" \
 	"$$FacebookArenaRootPath/Source/FacebookArena/SpectatorPawn_FA.cpp" \
 	"$$FacebookArenaRootPath/Source/FacebookArena/StartMenuWidget.cpp" \
  

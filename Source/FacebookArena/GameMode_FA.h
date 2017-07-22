@@ -21,6 +21,8 @@ public:
 	FString& GetFB_ApiPath() { return FB_ApiPath; }
 	TArray<FString>& GetFriendsPictures() { return FriendsPictures; }
 
+	void SpawnAll();
+
 protected:
 	virtual void BeginPlay() override;
 
@@ -40,4 +42,5 @@ public:
 
 private:
 	TArray<FString> FriendsPictures;
+	class ASpawnVolume* SpawnVolume;
 };

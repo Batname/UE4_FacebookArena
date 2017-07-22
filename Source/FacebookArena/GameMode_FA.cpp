@@ -6,9 +6,10 @@
 #include "FacebookArenaCharacter.h"
 #include "PlayerController_FA.h"
 #include "HUD_FA.h"
+#include "SpawnVolume.h"
 
 #include "UObject/ConstructorHelpers.h"
-
+#include "Kismet/GameplayStatics.h"
 
 AGameMode_FA::AGameMode_FA()
 {
@@ -38,4 +39,20 @@ AGameMode_FA::AGameMode_FA()
 void AGameMode_FA::BeginPlay()
 {
 	Super::BeginPlay();
+
+	// Set reference to spawner
+	TArray<AActor*> FoundActors;
+	UGameplayStatics::GetAllActorsOfClass(GetWorld(), ASpawnVolume::StaticClass(), FoundActors);
+	for (auto Actor : FoundActors)
+	{
+		SpawnVolume = Cast<ASpawnVolume>(Actor);
+	}
+}
+
+void AGameMode_FA::SpawnAll()
+{
+	for (auto PictureURL : FriendsPictures)
+	{
+		SpawnVolume->Spawn(PictureURL);
+	}
 }

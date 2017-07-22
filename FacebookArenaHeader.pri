@@ -8850,6 +8850,7 @@ HEADERS += \
 	"$$FacebookArenaRootPath/Source/FacebookArena/HUD_FA.h" \
 	"$$FacebookArenaRootPath/Source/FacebookArena/PlayerController_FA.h" \
 	"$$FacebookArenaRootPath/Source/FacebookArena/PlayerState_FA.h" \
+	"$$FacebookArenaRootPath/Source/FacebookArena/SpawnVolume.h" \
 	"$$FacebookArenaRootPath/Source/FacebookArena/SpectatorPawn_FA.h" \
 	"$$FacebookArenaRootPath/Source/FacebookArena/StartMenuWidget.h" \
  
