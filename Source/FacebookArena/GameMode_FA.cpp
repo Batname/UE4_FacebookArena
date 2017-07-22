@@ -38,9 +38,4 @@ AGameMode_FA::AGameMode_FA()
 void AGameMode_FA::BeginPlay()
 {
 	Super::BeginPlay();
-
-	// Set references to game mode classes
-	Character_FA = DefaultPawnClass->GetDefaultObject<AFacebookArenaCharacter>();
-	PlayerController_FA = PlayerControllerClass->GetDefaultObject<APlayerController_FA>();
-	HUD_FA = HUDClass->GetDefaultObject<AHUD_FA>();
 }

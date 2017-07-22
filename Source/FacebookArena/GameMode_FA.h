@@ -17,12 +17,10 @@ class FACEBOOKARENA_API AGameMode_FA : public AGameMode
 public:
 	AGameMode_FA();
 
-	class APlayerController_FA* GetPlayerController_FA() { return PlayerController_FA; }
-
 protected:
 	virtual void BeginPlay() override;
 	
-private:
+public:
 	// References to game mode classes
 	class AFacebookArenaCharacter* Character_FA;
 	class APlayerController_FA* PlayerController_FA;

@@ -14,7 +14,13 @@ class FACEBOOKARENA_API UStartMenuWidget : public UUserWidget
 {
 	GENERATED_BODY()
 	
-	
-	
-	
+protected:
+	virtual void NativeConstruct() override;
+
+	UFUNCTION(BlueprintCallable, Category = MenuWidget)
+	void OpenGameSettingsWidget();
+
+private:
+	/** Set reference to game mode */
+	class AGameMode_FA* GameMode_FA;
 };
