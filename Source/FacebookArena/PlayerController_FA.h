@@ -21,6 +21,10 @@ public:
 	/** Open second widget after start up widget */
 	void OpenGameSettingsWidget();
 
+	/** Handle after click start game */
+	UFUNCTION()
+	void StartGame();
+
 	/* The get friends HTTP call */
 	UFUNCTION()
 	void GetPictureHttpCall(const FString& FacebookID);

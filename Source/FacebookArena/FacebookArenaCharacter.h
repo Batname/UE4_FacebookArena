@@ -29,6 +29,9 @@ public:
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category=Camera)
 	float BaseLookUpRate;
 
+	UFUNCTION()
+	void ToggleInput();
+
 protected:
 	virtual void BeginPlay() override;
 
@@ -73,5 +76,7 @@ public:
 private:
 	/** reference to game mode */
 	class AGameMode_FA* GameMode_FA;
+
+	bool bIsInputActive = true;
 };
 

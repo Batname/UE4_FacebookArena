@@ -59,8 +59,7 @@ void AFacebookArenaCharacter::BeginPlay()
 	GameMode_FA = Cast<AGameMode_FA>(GetWorld()->GetAuthGameMode());
 	GameMode_FA->Character_FA = this;
 
-	// Disable input by default
-	DisableInput(GameMode_FA->PlayerController_FA);
+	ToggleInput();
 }
 
 //////////////////////////////////////////////////////////////////////////
@@ -146,5 +145,20 @@ void AFacebookArenaCharacter::MoveRight(float Value)
 		const FVector Direction = FRotationMatrix(YawRotation).GetUnitAxis(EAxis::Y);
 		// add movement in that direction
 		AddMovementInput(Direction, Value);
+	}
+}
+
+
+void AFacebookArenaCharacter::ToggleInput()
+{
+	if (bIsInputActive)
+	{
+		DisableInput(GameMode_FA->PlayerController_FA);
+		bIsInputActive = false;
+	}
+	else
+	{
+		EnableInput(GameMode_FA->PlayerController_FA);
+		bIsInputActive = true;
 	}
 }

@@ -5,9 +5,17 @@
 
 #include "GameMode_FA.h"
 #include "PlayerController_FA.h"
+#include "FacebookArenaCharacter.h"
+
 
 void UGameSettingsWidget::ConnectFacebookID()
 {
 	GameMode_FA = Cast<AGameMode_FA>(GetWorld()->GetAuthGameMode());
 	GameMode_FA->PlayerController_FA->GetFriendsHttpCall(PlayerFacebookID);
+}
+
+void UGameSettingsWidget::ClickStartButton()
+{
+	GameMode_FA->PlayerController_FA->StartGame();
+	GameMode_FA->Character_FA->ToggleInput();
 }

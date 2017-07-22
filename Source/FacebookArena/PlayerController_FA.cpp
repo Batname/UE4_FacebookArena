@@ -108,12 +108,24 @@ void APlayerController_FA::OnGetPictureResponseReceived(FHttpRequestPtr Request,
 	if (FriendsNum == FriendsNumCount)
 	{
 		UE_LOG(LogTemp, Warning, TEXT("OnGetPictureResponseReceived DONE"));
+
 		// Disable input
 		GameSettingsWidget->ConnectFacebookID_Done();
 
+		// TODO - add opponent pictures
 		// Show start game button
+		GameSettingsWidget->ShowStartButton();
 	}
 }
 
+void APlayerController_FA::StartGame()
+{
+	// Hide cursor
+	bShowMouseCursor = false;
+
+	// remove option widget
+	GameSettingsWidget->RemoveFromViewport();
+
+}
 
 // 100007953361890
