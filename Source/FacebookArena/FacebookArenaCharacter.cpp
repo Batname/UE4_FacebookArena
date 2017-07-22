@@ -1,6 +1,8 @@
 // Copyright 1998-2017 Epic Games, Inc. All Rights Reserved.
 
 #include "FacebookArenaCharacter.h"
+#include "PlayerController_FA.h"
+
 #include "Kismet/HeadMountedDisplayFunctionLibrary.h"
 #include "Camera/CameraComponent.h"
 #include "Components/CapsuleComponent.h"
@@ -45,6 +47,17 @@ AFacebookArenaCharacter::AFacebookArenaCharacter()
 
 	// Note: The skeletal mesh and anim blueprint references on the Mesh component (inherited from Character) 
 	// are set in the derived blueprint asset named MyCharacter (to avoid direct content references in C++)
+}
+
+void AFacebookArenaCharacter::BeginPlay()
+{
+	Super::BeginPlay();
+
+	// Set reference to controller
+	PlayerController = Cast<APlayerController_FA>(GetWorld()->GetFirstPlayerController());
+
+	// Disable input by default
+	DisableInput(PlayerController);
 }
 
 //////////////////////////////////////////////////////////////////////////

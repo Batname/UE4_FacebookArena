@@ -3,6 +3,9 @@
 
 #include "PlayerController_FA.h"
 
-
-
+APlayerController_FA::APlayerController_FA()
+{
+	// Show cursor by default
+	bShowMouseCursor = true;
+}
 

@@ -17,5 +17,7 @@ class FACEBOOKARENA_API AGameMode_FA : public AGameMode
 public:
 	AGameMode_FA();
 
+protected:
+	virtual void BeginPlay() override;
 	
 };

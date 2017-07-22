@@ -30,6 +30,7 @@ public:
 	float BaseLookUpRate;
 
 protected:
+	virtual void BeginPlay() override;
 
 	/** Resets HMD orientation in VR. */
 	void OnResetVR();
@@ -68,5 +69,9 @@ public:
 	FORCEINLINE class USpringArmComponent* GetCameraBoom() const { return CameraBoom; }
 	/** Returns FollowCamera subobject **/
 	FORCEINLINE class UCameraComponent* GetFollowCamera() const { return FollowCamera; }
+
+private:
+	/** Reference to player controller */
+	class APlayerController_FA* PlayerController;
 };
 

@@ -4,6 +4,7 @@
 #include "HUD_FA.h"
 #include "StartMenuWidget.h"
 #include "PlayerController_FA.h"
+#include "UObject/ConstructorHelpers.h"
 
 AHUD_FA::AHUD_FA()
 {
@@ -13,8 +14,6 @@ AHUD_FA::AHUD_FA()
 void AHUD_FA::BeginPlay()
 {
 	Super::BeginPlay();
-
-	UE_LOG(LogTemp, Warning, TEXT("BeginPlay"));
 
 	// Set reference to controller
 	PlayerController = Cast<APlayerController_FA>(GetOwningPlayerController());

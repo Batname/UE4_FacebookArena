@@ -17,3 +17,7 @@ AGameMode_FA::AGameMode_FA()
 }
 
 
+void AGameMode_FA::BeginPlay()
+{
+	Super::BeginPlay();
+}

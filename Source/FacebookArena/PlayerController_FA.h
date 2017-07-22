@@ -14,7 +14,8 @@ class FACEBOOKARENA_API APlayerController_FA : public APlayerController
 {
 	GENERATED_BODY()
 	
-	
+public:
+	APlayerController_FA();
 	
 	
 };
