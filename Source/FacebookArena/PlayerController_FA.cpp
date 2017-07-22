@@ -59,8 +59,61 @@ void APlayerController_FA::GetFriendsHttpCall(const FString& FacebookID)
 	Request->ProcessRequest();
 }
 
+// TODO - check response errors
 void APlayerController_FA::OnGetFriendsResponseReceived(FHttpRequestPtr Request, FHttpResponsePtr Response, bool bWasSuccessful)
 {
-	UE_LOG(LogTemp, Warning, TEXT("OnGetFriendsResponseReceived"));
+	//Create a pointer to hold the json serialized data
+	TSharedPtr<FJsonObject> JsonObject;
+	
+	//Create a reader pointer to read the json data
+	TSharedRef<TJsonReader<>> Reader = TJsonReaderFactory<>::Create(Response->GetContentAsString());
+	
+	//Deserialize the json data given Reader and the actual object to deserialize
+	if (FJsonSerializer::Deserialize(Reader, JsonObject))
+	{
+		//Get the value of the json object by field name
+		TArray <TSharedPtr<FJsonValue>> FriendsArray = JsonObject->GetArrayField("data");
 
+		FriendsNum = FriendsArray.Num();
+
+		for (int i = 0; i != FriendsArray.Num(); i++)
+		{
+			TSharedPtr<FJsonObject> Friend = FriendsArray[i]->AsObject();
+			FString FriendID = Friend->GetStringField("id");
+			GetPictureHttpCall(FriendID);
+		}
+	}
 }
+
+void APlayerController_FA::GetPictureHttpCall(const FString& FacebookID)
+{
+	FString API_Path = GameMode_FA->GetFB_ApiPath() + FacebookID + FString("/picture?width=600&height=800&access_token=") + GameMode_FA->GetFB_Token();
+
+	TSharedRef<IHttpRequest> Request = Http->CreateRequest();
+	Request->OnProcessRequestComplete().BindUObject(this, &APlayerController_FA::OnGetPictureResponseReceived);
+	Request->SetURL(API_Path);
+	Request->SetVerb("GET");
+	Request->SetHeader(TEXT("User-Agent"), "X-UnrealEngine-Agent");
+	Request->SetHeader("Content-Type", TEXT("application/json"));
+	Request->ProcessRequest();
+}
+
+// TODO - check response errors
+void APlayerController_FA::OnGetPictureResponseReceived(FHttpRequestPtr Request, FHttpResponsePtr Response, bool bWasSuccessful)
+{
+	// Add to friends array
+	GameMode_FA->GetFriendsPictures().Add(Response->GetHeader("Location"));
+
+	FriendsNumCount++;
+	if (FriendsNum == FriendsNumCount)
+	{
+		UE_LOG(LogTemp, Warning, TEXT("OnGetPictureResponseReceived DONE"));
+		// Disable input
+		GameSettingsWidget->ConnectFacebookID_Done();
+
+		// Show start game button
+	}
+}
+
+
+// 100007953361890

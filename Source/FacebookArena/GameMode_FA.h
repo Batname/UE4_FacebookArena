@@ -17,8 +17,9 @@ class FACEBOOKARENA_API AGameMode_FA : public AGameMode
 public:
 	AGameMode_FA();
 
-	FString GetFB_Token() { return FB_Token; }
-	FString GetFB_ApiPath() { return FB_ApiPath; }
+	FString& GetFB_Token() { return FB_Token; }
+	FString& GetFB_ApiPath() { return FB_ApiPath; }
+	TArray<FString>& GetFriendsPictures() { return FriendsPictures; }
 
 protected:
 	virtual void BeginPlay() override;
@@ -36,4 +37,7 @@ public:
 	class AFacebookArenaCharacter* Character_FA;
 	class APlayerController_FA* PlayerController_FA;
 	class AHUD_FA* HUD_FA;
+
+private:
+	TArray<FString> FriendsPictures;
 };

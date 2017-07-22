@@ -23,8 +23,13 @@ protected:
 
 	UFUNCTION(BlueprintCallable, Category = GameSettingsWidget)
 	void ConnectFacebookID();
+
 private:
 	/** Set reference to game mode */
 	class AGameMode_FA* GameMode_FA;
-	
+
+public:
+	UFUNCTION(BlueprintImplementableEvent, Category = GameSettingsWidget)
+	void ConnectFacebookID_Done();
+
 };

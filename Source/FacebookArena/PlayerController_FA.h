@@ -23,6 +23,11 @@ public:
 
 	/* The get friends HTTP call */
 	UFUNCTION()
+	void GetPictureHttpCall(const FString& FacebookID);
+
+
+	/* The get friends HTTP call */
+	UFUNCTION()
 	void GetFriendsHttpCall(const FString& FacebookID);
 
 protected:
@@ -51,4 +56,8 @@ private:
 	/*Assign this function to call when the GET request processes sucessfully*/
 	void OnGetFriendsResponseReceived(FHttpRequestPtr Request, FHttpResponsePtr Response, bool bWasSuccessful);
 
+	void OnGetPictureResponseReceived(FHttpRequestPtr Request, FHttpResponsePtr Response, bool bWasSuccessful);
+
+	uint32 FriendsNum = 0;
+	uint32 FriendsNumCount = 0;
 };
