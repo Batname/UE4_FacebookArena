@@ -17,5 +17,14 @@ class FACEBOOKARENA_API APlayerController_FA : public APlayerController
 public:
 	APlayerController_FA();
 	
+protected:
+	virtual void BeginPlay() override;
+
+	/** StartMenuWidget blueprint reference */
+	UPROPERTY(EditDefaultsOnly, Category = Widgets)
+	TSubclassOf<class UStartMenuWidget> BP_StartMenuWidget;
 	
+private:
+	/** Reference to StartMenuWidget cpp class */
+	class UStartMenuWidget* StartMenuWidget;
 };

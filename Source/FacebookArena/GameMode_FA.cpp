@@ -2,17 +2,35 @@
 
 
 #include "GameMode_FA.h"
+
 #include "FacebookArenaCharacter.h"
+#include "PlayerController_FA.h"
+#include "HUD_FA.h"
+
 #include "UObject/ConstructorHelpers.h"
 
 
 AGameMode_FA::AGameMode_FA()
 {
 	// set default pawn class to our Blueprinted character
-	static ConstructorHelpers::FClassFinder<APawn> PlayerPawnBPClass(TEXT("/Game/Blueprints/ThirdPersonCharacter"));
+	static ConstructorHelpers::FClassFinder<AFacebookArenaCharacter> PlayerPawnBPClass(TEXT("/Game/Blueprints/ThirdPersonCharacter"));
 	if (PlayerPawnBPClass.Class != NULL)
 	{
 		DefaultPawnClass = PlayerPawnBPClass.Class;
+	}
+
+	// Set player controller
+	static ConstructorHelpers::FClassFinder<APlayerController_FA> BP_PlayerController_FA(TEXT("/Game/Blueprints/BP_PlayerController_FA"));
+	if (BP_PlayerController_FA.Class != NULL)
+	{
+		PlayerControllerClass = BP_PlayerController_FA.Class;
+	}
+
+	// Set HUD
+	static ConstructorHelpers::FClassFinder<AHUD_FA> BP_HUD_FA(TEXT("/Game/Blueprints/BP_HUD_FA"));
+	if (BP_HUD_FA.Class != NULL)
+	{
+		HUDClass = BP_HUD_FA.Class;
 	}
 }
 
@@ -20,4 +38,9 @@ AGameMode_FA::AGameMode_FA()
 void AGameMode_FA::BeginPlay()
 {
 	Super::BeginPlay();
+
+	// Set references to game mode classes
+	Character_FA = DefaultPawnClass->GetDefaultObject<AFacebookArenaCharacter>();
+	PlayerController_FA = PlayerControllerClass->GetDefaultObject<APlayerController_FA>();
+	HUD_FA = HUDClass->GetDefaultObject<AHUD_FA>();
 }

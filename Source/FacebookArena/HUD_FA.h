@@ -20,15 +20,4 @@ public:
 protected:
 	virtual void BeginPlay() override;
 	virtual void DrawHUD() override;
-
-	/** StartMenuWidget blueprint reference */
-	UPROPERTY(EditDefaultsOnly, Category = Widgets)
-	TSubclassOf<class UStartMenuWidget> BP_StartMenuWidget;
-
-private:
-	/** Reference to StartMenuWidget cpp class */
-	class UStartMenuWidget* StartMenuWidget;
-
-	/** Reference to player controller */
-	class APlayerController_FA* PlayerController;
 };

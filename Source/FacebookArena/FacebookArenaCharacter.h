@@ -71,7 +71,7 @@ public:
 	FORCEINLINE class UCameraComponent* GetFollowCamera() const { return FollowCamera; }
 
 private:
-	/** Reference to player controller */
-	class APlayerController_FA* PlayerController;
+	/** reference to game mode */
+	class AGameMode_FA* GameMode_FA;
 };
 

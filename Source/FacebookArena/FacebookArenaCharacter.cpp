@@ -1,7 +1,9 @@
 // Copyright 1998-2017 Epic Games, Inc. All Rights Reserved.
 
 #include "FacebookArenaCharacter.h"
+
 #include "PlayerController_FA.h"
+#include "GameMode_FA.h"
 
 #include "Kismet/HeadMountedDisplayFunctionLibrary.h"
 #include "Camera/CameraComponent.h"
@@ -53,11 +55,11 @@ void AFacebookArenaCharacter::BeginPlay()
 {
 	Super::BeginPlay();
 
-	// Set reference to controller
-	PlayerController = Cast<APlayerController_FA>(GetWorld()->GetFirstPlayerController());
+	// Set reference to game mode
+	GameMode_FA = AGameMode_FA::StaticClass()->GetDefaultObject<AGameMode_FA>();
 
 	// Disable input by default
-	DisableInput(PlayerController);
+	DisableInput(GameMode_FA->GetPlayerController_FA());
 }
 
 //////////////////////////////////////////////////////////////////////////
