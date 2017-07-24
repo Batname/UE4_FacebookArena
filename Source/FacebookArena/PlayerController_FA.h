@@ -5,6 +5,7 @@
 #include "CoreMinimal.h"
 #include "GameFramework/PlayerController.h"
 #include "Runtime/Online/HTTP/Public/Http.h"
+#include "Delegates/DelegateInstanceInterface.h"
 #include "PlayerController_FA.generated.h"
 
 /**
@@ -27,12 +28,11 @@ public:
 
 	/* The get friends HTTP call */
 	UFUNCTION()
-	void GetPictureHttpCall(const FString& FacebookID);
-
+	void GetFriendsHttpCall(const FString& FacebookID);
 
 	/* The get friends HTTP call */
 	UFUNCTION()
-	void GetFriendsHttpCall(const FString& FacebookID);
+	void GetEnemiesHttpCall(const FString& FacebookID);
 
 protected:
 	virtual void BeginPlay() override;
@@ -59,9 +59,13 @@ private:
 
 	/*Assign this function to call when the GET request processes sucessfully*/
 	void OnGetFriendsResponseReceived(FHttpRequestPtr Request, FHttpResponsePtr Response, bool bWasSuccessful);
+	void OnGeEnemiesResponseReceived(FHttpRequestPtr Request, FHttpResponsePtr Response, bool bWasSuccessful);
 
 	void OnGetPictureResponseReceived(FHttpRequestPtr Request, FHttpResponsePtr Response, bool bWasSuccessful);
 
 	uint32 FriendsNum = 0;
 	uint32 FriendsNumCount = 0;
+
+	typedef void (APlayerController_FA::*HttpRequestCallback)(FHttpRequestPtr Request, FHttpResponsePtr Response, bool bWasSuccessful);
+	void GetHttpCall(const FString& FacebookID, const FString& URL, HttpRequestCallback Callback);
 };

@@ -51,8 +51,8 @@ void AGameMode_FA::BeginPlay()
 
 void AGameMode_FA::SpawnAll()
 {
-	for (auto PictureURL : FriendsPictures)
+	for (auto FriendData : FriendsData)
 	{
-		SpawnVolume->Spawn(PictureURL);
+		SpawnVolume->Spawn(FriendData.ImagePath);
 	}
 }

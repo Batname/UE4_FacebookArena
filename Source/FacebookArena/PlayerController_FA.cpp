@@ -5,6 +5,7 @@
 #include "StartMenuWidget.h"
 #include "GameSettingsWidget.h"
 #include "GameMode_FA.h"
+#include "FB_AccountData.h"
 
 #include "UObject/ConstructorHelpers.h"
 
@@ -46,17 +47,32 @@ void APlayerController_FA::OpenGameSettingsWidget()
 	GameSettingsWidget->AddToViewport();
 }
 
-void APlayerController_FA::GetFriendsHttpCall(const FString& FacebookID)
+
+void APlayerController_FA::GetHttpCall(const FString& FacebookID, const FString& URL, HttpRequestCallback Callback)
 {
-	FString API_Path = GameMode_FA->GetFB_ApiPath() + FacebookID + FString("/friends?access_token=") + GameMode_FA->GetFB_Token();
+	FString API_Path = GameMode_FA->GetFB_ApiPath() + FacebookID + URL + GameMode_FA->GetFB_Token();
 
 	TSharedRef<IHttpRequest> Request = Http->CreateRequest();
-	Request->OnProcessRequestComplete().BindUObject(this, &APlayerController_FA::OnGetFriendsResponseReceived);
+	Request->OnProcessRequestComplete().BindUObject(this, Callback);
 	Request->SetURL(API_Path);
 	Request->SetVerb("GET");
 	Request->SetHeader(TEXT("User-Agent"), "X-UnrealEngine-Agent");
 	Request->SetHeader("Content-Type", TEXT("application/json"));
+	Request->SetHeader("FacebookID", FacebookID);
 	Request->ProcessRequest();
+}
+
+
+void APlayerController_FA::GetFriendsHttpCall(const FString& FacebookID)
+{	
+	GameMode_FA->PlayerFacebookID = FacebookID;
+	GetHttpCall(FacebookID, FString("/friends?access_token="), &APlayerController_FA::OnGetFriendsResponseReceived);
+}
+
+void APlayerController_FA::GetEnemiesHttpCall(const FString& FacebookID)
+{
+	GameMode_FA->EnemyFacebookID = FacebookID;
+	GetHttpCall(FacebookID, FString("/friends?access_token="), &APlayerController_FA::OnGeEnemiesResponseReceived);
 }
 
 // TODO - check response errors
@@ -80,29 +96,26 @@ void APlayerController_FA::OnGetFriendsResponseReceived(FHttpRequestPtr Request,
 		{
 			TSharedPtr<FJsonObject> Friend = FriendsArray[i]->AsObject();
 			FString FriendID = Friend->GetStringField("id");
-			GetPictureHttpCall(FriendID);
+			GetHttpCall(FriendID, FString("/picture?width=600&height=800&access_token="), &APlayerController_FA::OnGetPictureResponseReceived);
 		}
 	}
 }
 
-void APlayerController_FA::GetPictureHttpCall(const FString& FacebookID)
+void APlayerController_FA::OnGeEnemiesResponseReceived(FHttpRequestPtr Request, FHttpResponsePtr Response, bool bWasSuccessful)
 {
-	FString API_Path = GameMode_FA->GetFB_ApiPath() + FacebookID + FString("/picture?width=600&height=800&access_token=") + GameMode_FA->GetFB_Token();
-
-	TSharedRef<IHttpRequest> Request = Http->CreateRequest();
-	Request->OnProcessRequestComplete().BindUObject(this, &APlayerController_FA::OnGetPictureResponseReceived);
-	Request->SetURL(API_Path);
-	Request->SetVerb("GET");
-	Request->SetHeader(TEXT("User-Agent"), "X-UnrealEngine-Agent");
-	Request->SetHeader("Content-Type", TEXT("application/json"));
-	Request->ProcessRequest();
+	UE_LOG(LogTemp, Warning, TEXT("OnGeEnemiesResponseReceived"));
 }
 
 // TODO - check response errors
 void APlayerController_FA::OnGetPictureResponseReceived(FHttpRequestPtr Request, FHttpResponsePtr Response, bool bWasSuccessful)
 {
 	// Add to friends array
-	GameMode_FA->GetFriendsPictures().Add(Response->GetHeader("Location"));
+	FFB_AccountData FB_AccountData;
+	FB_AccountData.Id = Request->GetHeader("FacebookID");
+	FB_AccountData.OwnerId = GameMode_FA->PlayerFacebookID;
+	FB_AccountData.ImagePath = Response->GetHeader("Location");
+	FB_AccountData.Type = EAccountType::Friend;
+	GameMode_FA->GetFriendsData().Add(FB_AccountData);
 
 	FriendsNumCount++;
 	if (FriendsNum == FriendsNumCount)

@@ -9,5 +9,6 @@ public class FacebookArenaTarget : TargetRules
 	{
 		Type = TargetType.Game;
 		ExtraModuleNames.Add("FacebookArena");
+		ExtraModuleNames.Add("FacebookArenaSinglePlayer");
 	}
 }

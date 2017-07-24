@@ -9,5 +9,6 @@ public class FacebookArenaEditorTarget : TargetRules
 	{
 		Type = TargetType.Editor;
 		ExtraModuleNames.Add("FacebookArena");
+		ExtraModuleNames.Add("FacebookArenaSinglePlayer");
 	}
 }

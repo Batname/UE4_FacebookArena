@@ -4,6 +4,7 @@
 
 #include "CoreMinimal.h"
 #include "GameFramework/GameMode.h"
+#include "FB_AccountData.h"
 #include "GameMode_FA.generated.h"
 
 /**
@@ -19,7 +20,7 @@ public:
 
 	FString& GetFB_Token() { return FB_Token; }
 	FString& GetFB_ApiPath() { return FB_ApiPath; }
-	TArray<FString>& GetFriendsPictures() { return FriendsPictures; }
+	TArray<FFB_AccountData>& GetFriendsData() { return FriendsData; }
 
 	void SpawnAll();
 
@@ -40,7 +41,11 @@ public:
 	class APlayerController_FA* PlayerController_FA;
 	class AHUD_FA* HUD_FA;
 
+	FString PlayerFacebookID;
+	FString EnemyFacebookID;
+
+
 private:
-	TArray<FString> FriendsPictures;
+	TArray<FFB_AccountData> FriendsData;
 	class ASpawnVolume* SpawnVolume;
 };

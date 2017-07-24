@@ -7,19 +7,14 @@
 #include "Engine/DataTable.h"
 #include "FB_AccountData.generated.h"
 
-/**
- * 
- */
-// UCLASS()
-// class FACEBOOKARENA_API UFB_AccountData : public UObject
-// {
-// 	GENERATED_BODY()
-	
-	
-	
-	
-// };
-
+UENUM(BlueprintType)
+enum class EAccountType : uint8
+{
+	PlayerCharacter UMETA(DisplayName = "PlayerCharacter"),
+	EnemyCharacter UMETA(DisplayName = "EnemyCharacter"),
+	Enemy	UMETA(DisplayName = "Enemy"),
+	Friend	UMETA(DisplayName = "Friend")
+};
 
 USTRUCT(BlueprintType)
 struct FFB_AccountData : public FTableRowBase
@@ -28,9 +23,17 @@ struct FFB_AccountData : public FTableRowBase
 
 	/*The subtitle that will be displayed for a specific period of time in our UI*/
 	UPROPERTY(EditAnywhere)
-	int Id;
+	FString Id;
+
+	/* Keep in track owner */
+	UPROPERTY(EditAnywhere)
+	FString OwnerId;
 
 	/*The relative time in seconds, that the subtitle will appear*/
 	UPROPERTY(EditAnywhere)
 	FString ImagePath;
+
+	/*The relative time in seconds, that the subtitle will appear*/
+	UPROPERTY(EditAnywhere)
+	EAccountType Type;
 };

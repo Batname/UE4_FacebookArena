@@ -15,6 +15,9 @@ class FACEBOOKARENA_API UGameSettingsWidget : public UUserWidget
 	GENERATED_BODY()
 	
 protected:
+	virtual void NativeConstruct() override;
+
+
 	UPROPERTY(BlueprintReadWrite)
 	FString PlayerFacebookID;
 
@@ -23,6 +26,9 @@ protected:
 
 	UFUNCTION(BlueprintCallable, Category = GameSettingsWidget)
 	void ConnectFacebookID();
+
+	UFUNCTION(BlueprintCallable, Category = GameSettingsWidget)
+	void ConnectEnemyFacebookID();
 
 	UFUNCTION(BlueprintCallable, Category = GameSettingsWidget)
 	void ClickStartButton();
