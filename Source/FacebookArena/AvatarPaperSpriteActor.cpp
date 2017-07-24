@@ -44,7 +44,7 @@ void AAvatarPaperSpriteActor::GetAvatarHttpCall(const FString PictureURL)
 void AAvatarPaperSpriteActor::OnResponseReceived(FHttpRequestPtr Request, FHttpResponsePtr Response, bool bWasSuccessful)
 {
 	TArray<uint8> ImageDataArray = Response->GetContent();
-	UTexture2D* MyTex;
+	UTexture2D* MyTex = nullptr;
 
 	IImageWrapperModule& ImageWrapperModule = FModuleManager::LoadModuleChecked<IImageWrapperModule>(FName("ImageWrapper"));
 	IImageWrapperPtr ImageWrapper = ImageWrapperModule.CreateImageWrapper(EImageFormat::JPEG);
