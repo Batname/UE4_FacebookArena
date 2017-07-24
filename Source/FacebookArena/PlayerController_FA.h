@@ -3,6 +3,7 @@
 #pragma once
 
 #include "CoreMinimal.h"
+#include "GameMode_FA.h"
 #include "GameFramework/PlayerController.h"
 #include "Runtime/Online/HTTP/Public/Http.h"
 #include "Delegates/DelegateInstanceInterface.h"
@@ -57,15 +58,20 @@ private:
 
 	FHttpModule* Http;
 
-	/*Assign this function to call when the GET request processes sucessfully*/
-	void OnGetFriendsResponseReceived(FHttpRequestPtr Request, FHttpResponsePtr Response, bool bWasSuccessful);
-	void OnGeEnemiesResponseReceived(FHttpRequestPtr Request, FHttpResponsePtr Response, bool bWasSuccessful);
-
-	void OnGetPictureResponseReceived(FHttpRequestPtr Request, FHttpResponsePtr Response, bool bWasSuccessful);
-
 	uint32 FriendsNum = 0;
 	uint32 FriendsNumCount = 0;
 
+	uint32 EnemiesNum = 0;
+	uint32 EnemiesNumCount = 0;
+
 	typedef void (APlayerController_FA::*HttpRequestCallback)(FHttpRequestPtr Request, FHttpResponsePtr Response, bool bWasSuccessful);
 	void GetHttpCall(const FString& FacebookID, const FString& URL, HttpRequestCallback Callback);
+
+	void ParseFriendsResponseReceived(FHttpRequestPtr Request, FHttpResponsePtr Response, bool bWasSuccessful, uint32& UserCount, HttpRequestCallback Callback);
+	void OnGetPlayerFriendsResponseReceived(FHttpRequestPtr Request, FHttpResponsePtr Response, bool bWasSuccessful);
+	void OnGetEnemyFriendsResponseReceived(FHttpRequestPtr Request, FHttpResponsePtr Response, bool bWasSuccessful);
+
+	void ParsePictureResponseReceived(FHttpRequestPtr Request, FHttpResponsePtr Response, bool bWasSuccessful, uint32 UserNum, uint32& UserNumCount, TArray<FFB_AccountData>& DataArray, const FString& OwnerId);
+	void OnGetFriendsPictureResponseReceived(FHttpRequestPtr Request, FHttpResponsePtr Response, bool bWasSuccessful);
+	void OnGetEnemiesPictureResponseReceived(FHttpRequestPtr Request, FHttpResponsePtr Response, bool bWasSuccessful);
 };

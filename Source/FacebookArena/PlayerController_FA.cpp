@@ -4,7 +4,6 @@
 #include "PlayerController_FA.h"
 #include "StartMenuWidget.h"
 #include "GameSettingsWidget.h"
-#include "GameMode_FA.h"
 #include "FB_AccountData.h"
 
 #include "UObject/ConstructorHelpers.h"
@@ -66,67 +65,97 @@ void APlayerController_FA::GetHttpCall(const FString& FacebookID, const FString&
 void APlayerController_FA::GetFriendsHttpCall(const FString& FacebookID)
 {	
 	GameMode_FA->PlayerFacebookID = FacebookID;
-	GetHttpCall(FacebookID, FString("/friends?access_token="), &APlayerController_FA::OnGetFriendsResponseReceived);
+	GetHttpCall(FacebookID, FString("/friends?access_token="), &APlayerController_FA::OnGetPlayerFriendsResponseReceived);
+
+	// Get player image call
+	FriendsNum++;
+	GetHttpCall(GameMode_FA->PlayerFacebookID, FString("/picture?width=600&height=800&access_token="), &APlayerController_FA::OnGetFriendsPictureResponseReceived);
 }
 
 void APlayerController_FA::GetEnemiesHttpCall(const FString& FacebookID)
 {
 	GameMode_FA->EnemyFacebookID = FacebookID;
-	GetHttpCall(FacebookID, FString("/friends?access_token="), &APlayerController_FA::OnGeEnemiesResponseReceived);
+	GetHttpCall(FacebookID, FString("/friends?access_token="), &APlayerController_FA::OnGetEnemyFriendsResponseReceived);
+
+	// Get enemy image call
+	EnemiesNum++;
+	GetHttpCall(GameMode_FA->EnemyFacebookID, FString("/picture?width=600&height=800&access_token="), &APlayerController_FA::OnGetEnemiesPictureResponseReceived);
 }
 
-// TODO - check response errors
-void APlayerController_FA::OnGetFriendsResponseReceived(FHttpRequestPtr Request, FHttpResponsePtr Response, bool bWasSuccessful)
+void APlayerController_FA::ParseFriendsResponseReceived(FHttpRequestPtr Request, FHttpResponsePtr Response, bool bWasSuccessful, uint32& UserCount, HttpRequestCallback Callback)
 {
-	//Create a pointer to hold the json serialized data
+	// Get player friends calls
 	TSharedPtr<FJsonObject> JsonObject;
-	
-	//Create a reader pointer to read the json data
 	TSharedRef<TJsonReader<>> Reader = TJsonReaderFactory<>::Create(Response->GetContentAsString());
-	
+
 	//Deserialize the json data given Reader and the actual object to deserialize
 	if (FJsonSerializer::Deserialize(Reader, JsonObject))
 	{
 		//Get the value of the json object by field name
-		TArray <TSharedPtr<FJsonValue>> FriendsArray = JsonObject->GetArrayField("data");
+		TArray <TSharedPtr<FJsonValue>> DataArray = JsonObject->GetArrayField("data");
 
-		FriendsNum = FriendsArray.Num();
+		UserCount += DataArray.Num();
 
-		for (int i = 0; i != FriendsArray.Num(); i++)
+		for (int i = 0; i != DataArray.Num(); i++)
 		{
-			TSharedPtr<FJsonObject> Friend = FriendsArray[i]->AsObject();
-			FString FriendID = Friend->GetStringField("id");
-			GetHttpCall(FriendID, FString("/picture?width=600&height=800&access_token="), &APlayerController_FA::OnGetPictureResponseReceived);
+			TSharedPtr<FJsonObject> Friend = DataArray[i]->AsObject();
+			FString UserID = Friend->GetStringField("id");
+			GetHttpCall(UserID, FString("/picture?width=600&height=800&access_token="), Callback);
 		}
 	}
 }
 
-void APlayerController_FA::OnGeEnemiesResponseReceived(FHttpRequestPtr Request, FHttpResponsePtr Response, bool bWasSuccessful)
+// TODO - check response errors
+void APlayerController_FA::OnGetPlayerFriendsResponseReceived(FHttpRequestPtr Request, FHttpResponsePtr Response, bool bWasSuccessful)
 {
-	UE_LOG(LogTemp, Warning, TEXT("OnGeEnemiesResponseReceived"));
+	ParseFriendsResponseReceived(Request, Response, bWasSuccessful, FriendsNum, &APlayerController_FA::OnGetFriendsPictureResponseReceived);
+}
+
+void APlayerController_FA::OnGetEnemyFriendsResponseReceived(FHttpRequestPtr Request, FHttpResponsePtr Response, bool bWasSuccessful)
+{
+	UE_LOG(LogTemp, Warning, TEXT("OnGetEnemyFriendsResponseReceived"));
+	ParseFriendsResponseReceived(Request, Response, bWasSuccessful, EnemiesNum, &APlayerController_FA::OnGetEnemiesPictureResponseReceived);
 }
 
 // TODO - check response errors
-void APlayerController_FA::OnGetPictureResponseReceived(FHttpRequestPtr Request, FHttpResponsePtr Response, bool bWasSuccessful)
+void APlayerController_FA::ParsePictureResponseReceived(FHttpRequestPtr Request, FHttpResponsePtr Response, bool bWasSuccessful, uint32 UserNum, uint32 & UserNumCount, TArray<FFB_AccountData>& DataArray, const FString& OwnerId)
 {
 	// Add to friends array
 	FFB_AccountData FB_AccountData;
 	FB_AccountData.Id = Request->GetHeader("FacebookID");
-	FB_AccountData.OwnerId = GameMode_FA->PlayerFacebookID;
+	FB_AccountData.OwnerId = OwnerId;
 	FB_AccountData.ImagePath = Response->GetHeader("Location");
-	FB_AccountData.Type = EAccountType::Friend;
-	GameMode_FA->GetFriendsData().Add(FB_AccountData);
+	DataArray.Add(FB_AccountData);
 
-	FriendsNumCount++;
-	if (FriendsNum == FriendsNumCount)
+	UserNumCount++;
+	if (UserNum == FriendsNumCount)
 	{
 		// Disable input
 		GameSettingsWidget->ConnectFacebookID_Done();
+	}
 
+	if (UserNum == EnemiesNumCount)
+	{
+		// Disable input
+		GameSettingsWidget->ConnectEnemyFacebookID_Done();
+	}
+
+	if (FriendsNumCount && FriendsNum == FriendsNumCount && EnemiesNumCount && EnemiesNum == EnemiesNumCount)
+	{
 		// TODO - add opponent pictures
 		// Show start game button
 		GameSettingsWidget->ShowStartButton();
 	}
+}
+
+void APlayerController_FA::OnGetFriendsPictureResponseReceived(FHttpRequestPtr Request, FHttpResponsePtr Response, bool bWasSuccessful)
+{
+	ParsePictureResponseReceived(Request, Response, bWasSuccessful, FriendsNum, FriendsNumCount, GameMode_FA->GetFriendsData(), GameMode_FA->PlayerFacebookID);
+}
+
+void APlayerController_FA::OnGetEnemiesPictureResponseReceived(FHttpRequestPtr Request, FHttpResponsePtr Response, bool bWasSuccessful)
+{
+	ParsePictureResponseReceived(Request, Response, bWasSuccessful, EnemiesNum, EnemiesNumCount, GameMode_FA->GetEnemiesData(), GameMode_FA->EnemyFacebookID);
 }
 
 void APlayerController_FA::StartGame()

@@ -21,6 +21,8 @@ public:
 	FString& GetFB_Token() { return FB_Token; }
 	FString& GetFB_ApiPath() { return FB_ApiPath; }
 	TArray<FFB_AccountData>& GetFriendsData() { return FriendsData; }
+	TArray<FFB_AccountData>& GetEnemiesData() { return EnemiesData; }
+
 
 	void SpawnAll();
 
@@ -47,5 +49,6 @@ public:
 
 private:
 	TArray<FFB_AccountData> FriendsData;
+	TArray<FFB_AccountData> EnemiesData;
 	class ASpawnVolume* SpawnVolume;
 };

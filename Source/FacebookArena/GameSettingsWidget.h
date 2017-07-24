@@ -43,5 +43,8 @@ public:
 	void ConnectFacebookID_Done();
 
 	UFUNCTION(BlueprintImplementableEvent, Category = GameSettingsWidget)
+	void ConnectEnemyFacebookID_Done();
+
+	UFUNCTION(BlueprintImplementableEvent, Category = GameSettingsWidget)
 	void ShowStartButton();
 };

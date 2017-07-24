@@ -7,15 +7,6 @@
 #include "Engine/DataTable.h"
 #include "FB_AccountData.generated.h"
 
-UENUM(BlueprintType)
-enum class EAccountType : uint8
-{
-	PlayerCharacter UMETA(DisplayName = "PlayerCharacter"),
-	EnemyCharacter UMETA(DisplayName = "EnemyCharacter"),
-	Enemy	UMETA(DisplayName = "Enemy"),
-	Friend	UMETA(DisplayName = "Friend")
-};
-
 USTRUCT(BlueprintType)
 struct FFB_AccountData : public FTableRowBase
 {
@@ -32,8 +23,4 @@ struct FFB_AccountData : public FTableRowBase
 	/*The relative time in seconds, that the subtitle will appear*/
 	UPROPERTY(EditAnywhere)
 	FString ImagePath;
-
-	/*The relative time in seconds, that the subtitle will appear*/
-	UPROPERTY(EditAnywhere)
-	EAccountType Type;
 };
