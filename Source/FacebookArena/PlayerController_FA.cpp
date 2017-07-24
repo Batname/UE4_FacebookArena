@@ -113,7 +113,6 @@ void APlayerController_FA::OnGetPlayerFriendsResponseReceived(FHttpRequestPtr Re
 
 void APlayerController_FA::OnGetEnemyFriendsResponseReceived(FHttpRequestPtr Request, FHttpResponsePtr Response, bool bWasSuccessful)
 {
-	UE_LOG(LogTemp, Warning, TEXT("OnGetEnemyFriendsResponseReceived"));
 	ParseFriendsResponseReceived(Request, Response, bWasSuccessful, EnemiesNum, &APlayerController_FA::OnGetEnemiesPictureResponseReceived);
 }
 

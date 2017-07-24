@@ -50,5 +50,7 @@ public:
 private:
 	TArray<FFB_AccountData> FriendsData;
 	TArray<FFB_AccountData> EnemiesData;
-	class ASpawnVolume* SpawnVolume;
+	class ASpawnVolume* FriendsVolume;
+	class ASpawnVolume* EnemiesVolume;
+
 };

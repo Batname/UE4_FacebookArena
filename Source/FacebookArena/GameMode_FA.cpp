@@ -45,7 +45,19 @@ void AGameMode_FA::BeginPlay()
 	UGameplayStatics::GetAllActorsOfClass(GetWorld(), ASpawnVolume::StaticClass(), FoundActors);
 	for (auto Actor : FoundActors)
 	{
-		SpawnVolume = Cast<ASpawnVolume>(Actor);
+		ASpawnVolume* Volume = Cast<ASpawnVolume>(Actor);
+		if (Volume != nullptr)
+		{
+			if (Volume->ActorHasTag("Friends"))
+			{
+				FriendsVolume = Volume;
+			}
+			else if (Volume->ActorHasTag("Enemies"))
+			{
+				EnemiesVolume = Volume;
+			}
+		}
+		FriendsVolume = Cast<ASpawnVolume>(Actor);
 	}
 }
 
@@ -53,6 +65,11 @@ void AGameMode_FA::SpawnAll()
 {
 	for (auto FriendData : FriendsData)
 	{
-		SpawnVolume->Spawn(FriendData.ImagePath);
+		FriendsVolume->Spawn(FriendData.ImagePath);
+	}
+
+	for (auto EnemyData : EnemiesData)
+	{
+		EnemiesVolume->Spawn(EnemyData.ImagePath);
 	}
 }
